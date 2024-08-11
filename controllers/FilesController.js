@@ -220,7 +220,7 @@ class FilesController {
 
   static async getFile(req, res) {
     const fileId = req.params.id;
-    const size = req.query.size;
+    const { size } = req.query;
     const token = req.headers['x-token'];
 
     const file = await dbClient.db.collection('files').findOne({ _id: ObjectId(fileId) });
@@ -257,13 +257,13 @@ class FilesController {
 
     const mimeType = mime.lookup(file.name);
 
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
-        return res.status(500).json({ error: 'Internal server error' });
-      }
+    try {
+      const data = await fs.promises.readFile(filePath);
       res.setHeader('Content-Type', mimeType);
       return res.send(data);
-    });
+    } catch (err) {
+      return res.status(500).json({ error: 'Internal server error' });
+    }
   }
 }
 
