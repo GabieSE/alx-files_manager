@@ -31,4 +31,3 @@ const routeController = (app) => {
 };
 
 export default routeController;
-

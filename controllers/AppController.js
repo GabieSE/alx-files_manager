@@ -1,11 +1,11 @@
-import redisClient from '../utils/redis';  // Ensure this path is correct
-import dbClient from '../utils/db';        // Ensure this path is correct
+import redisClient from '../utils/redis'; // Ensure this path is correct
+import dbClient from '../utils/db'; // Ensure this path is correct
 
 class AppController {
   static getStatus(req, res) {
     try {
       const redis = redisClient.isAlive(); // Check if Redis is alive
-      const db = dbClient.isAlive();       // Check if DB is alive
+      const db = dbClient.isAlive(); // Check if DB is alive
       res.status(200).json({ redis, db });
     } catch (error) {
       console.error('Error in getStatus:', error);
@@ -26,4 +26,3 @@ class AppController {
 }
 
 export default AppController;
-
