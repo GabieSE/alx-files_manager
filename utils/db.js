@@ -26,7 +26,7 @@ class DBClient {
     try {
       // Create collections if they do not exist
       const collections = await this.db.listCollections().toArray();
-      const collectionNames = collections.map(col => col.name);
+      const collectionNames = collections.map((col) => col.name);
 
       if (!collectionNames.includes('users')) {
         await this.db.createCollection('users');
@@ -92,4 +92,3 @@ class DBClient {
 
 const dbClient = new DBClient();
 export default dbClient;
-
